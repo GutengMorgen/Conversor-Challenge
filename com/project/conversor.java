@@ -3,6 +3,7 @@ package com.project;
 import javax.swing.*;
 import java.awt.event.*;
 // import com.project.getData;
+import java.util.Map;
 
 class conversor implements ActionListener {
 
@@ -21,8 +22,9 @@ class conversor implements ActionListener {
     JTextField inputText, outputText;
     JButton currencyBtn, temperatureBtn,
             measureBtn, convertBtn,
-            CleanBtn, inputBtn,
-            outputBtn;
+            CleanBtn;
+    JComboBox<String> inputBox, outputBox;
+    String[] languages = { "C", "C++", "C#", "Java", "PHP" };
 
     conversor() {
         jf = new JFrame();
@@ -41,11 +43,11 @@ class conversor implements ActionListener {
         measureBtn.addActionListener(this);
 
         // I/O buttons
-        inputBtn = new JButton("USD");
-        inputBtn.setBounds(posX, IposY, 80, IOheight);
+        inputBox = new JComboBox<String>(languages);
+        inputBox.setBounds(posX, IposY, 80, IOheight);
 
-        outputBtn = new JButton("EUR");
-        outputBtn.setBounds(posX, OposY, 80, IOheight);
+        outputBox = new JComboBox<String>(languages);
+        outputBox.setBounds(posX, OposY, 80, IOheight);
 
         // I/O textfields
         inputText = new JTextField("insert valor");
@@ -68,8 +70,8 @@ class conversor implements ActionListener {
         jf.add(temperatureBtn);
         jf.add(measureBtn);
 
-        jf.add(inputBtn);
-        jf.add(outputBtn);
+        jf.add(outputBox);
+        jf.add(inputBox);
 
         jf.add(inputText);
         jf.add(outputText);
@@ -95,20 +97,34 @@ class conversor implements ActionListener {
 
         if (e.getSource() == convertBtn) {
             String itext = inputText.getText();
-            String ibtn = inputBtn.getText();
-            String obtn = outputBtn.getText();
+            String ibtn = (String) inputBox.getSelectedItem();
+            String obtn = (String) outputBox.getSelectedItem();
 
             outputText.setText(testing(itext, ibtn, obtn));
         } else if (e.getSource() == CleanBtn) {
             inputText.setText("");
             outputText.setText("");
         } else if (e.getSource() == currencyBtn) {
-            getData.readCurrencyData();
+            Map<String, getData> map = getData.readCurrencyData();
+            for (var i : map.values()) {
+                System.out.println(i.name);
+            }
+            // String[] options = { "USD", "EUR", "PEN" };
+            // structure(options);
         } else if (e.getSource() == temperatureBtn) {
-            getData.readTemperatureData();
+            // getData.readTemperatureData();
+            String[] options = { "C", "F", "K" };
+            structure(options);
         } else if (e.getSource() == measureBtn) {
-            getData.readOthersData();
+            // getData.readOthersData();
+            String[] options = { "kg", "g", "mg" };
+            structure(options);
         }
+    }
+
+    private void structure(String[] options) {
+        inputBox.setModel(new DefaultComboBoxModel<String>(options));
+        outputBox.setModel(new DefaultComboBoxModel<String>(options));
     }
 
     public static void main(String[] args) {
