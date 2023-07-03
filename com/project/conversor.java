@@ -2,8 +2,8 @@ package com.project;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 // import com.project.getData;
 import java.util.Map;
 
@@ -25,8 +25,8 @@ class conversor implements ActionListener {
     JButton currencyBtn, temperatureBtn,
             measureBtn, convertBtn,
             CleanBtn;
-    JComboBox<String> inputBox, outputBox;
-    String[] languages = { "C", "C++", "C#", "Java", "PHP" };
+    JComboBox<MyItems> inputBox, outputBox;
+    // String[] languages = { "C", "C++", "C#", "Java", "PHP" };
 
     conversor() {
         jf = new JFrame();
@@ -45,10 +45,10 @@ class conversor implements ActionListener {
         measureBtn.addActionListener(this);
 
         // I/O buttons
-        inputBox = new JComboBox<String>(languages);
+        inputBox = new JComboBox<>();
         inputBox.setBounds(posX, IposY, 80, IOheight);
 
-        outputBox = new JComboBox<String>(languages);
+        outputBox = new JComboBox<>();
         outputBox.setBounds(posX, OposY, 80, IOheight);
 
         // I/O textfields
@@ -87,11 +87,14 @@ class conversor implements ActionListener {
         jf.setResizable(false);
     }
 
-    public String testing(String itext, String ibtn, String obtn) {
+    public String getResult(String itext, double ibtn, double obtn) {
         if (ibtn == obtn) {
             return itext;
         } else {
-            return itext + ibtn + obtn;
+            // TODO: agregar manejo de excepciones
+            double input = Double.parseDouble(itext);
+            double result = (obtn / ibtn) * input;
+            return Double.toString(result);
         }
     }
 
@@ -99,38 +102,49 @@ class conversor implements ActionListener {
 
         if (e.getSource() == convertBtn) {
             String itext = inputText.getText();
-            String ibtn = (String) inputBox.getSelectedItem();
-            String obtn = (String) outputBox.getSelectedItem();
 
-            outputText.setText(testing(itext, ibtn, obtn));
+            double iboxdouble = new MyItems().IBoxgetSelectedItem(inputBox);
+            double oboxdouble = new MyItems().OBoxGetSelectedItem(outputBox);
+            // System.out.println(iboxdouble + "\n" + oboxdouble);
+
+            String result = getResult(itext, iboxdouble, oboxdouble);
+            outputText.setText(result);
+
         } else if (e.getSource() == CleanBtn) {
             inputText.setText("");
             outputText.setText("");
         } else if (e.getSource() == currencyBtn) {
-            List<String> optionsList = new ArrayList<>();
+            /*
+             * List<String> optionsList = new ArrayList<>();
+             * Map<String, getData> map = getData.readCurrencyData();
+             * 
+             * for (var i : map.values()) {
+             * optionsList.add(i.name);
+             * }
+             * 
+             * String[] options = optionsList.toArray(new String[0]);
+             * structure(options);
+             */
             Map<String, getData> map = getData.readCurrencyData();
+            new MyItems().SetToComboBox(map, inputBox, outputBox);
+            // MyItems testing = new MyItems();
+            // testing.SetToComboBox(map, inputBox, outputBox);
 
-            for (var i : map.values()) {
-                optionsList.add(i.name);
-            }
-
-            String[] options = optionsList.toArray(new String[0]);
-            structure(options);
         } else if (e.getSource() == temperatureBtn) {
             // getData.readTemperatureData();
-            String[] options = { "C", "F", "K" };
-            structure(options);
+            // String[] options = { "C", "F", "K" };
+            // structure(options);
         } else if (e.getSource() == measureBtn) {
             // getData.readOthersData();
-            String[] options = { "kg", "g", "mg" };
-            structure(options);
+            // String[] options = { "kg", "g", "mg" };
+            // structure(options);
         }
     }
 
-    private void structure(String[] options) {
-        inputBox.setModel(new DefaultComboBoxModel<String>(options));
-        outputBox.setModel(new DefaultComboBoxModel<String>(options));
-    }
+    // private void structure(String[] options) {
+    // inputBox.setModel(new DefaultComboBoxModel<String>(options));
+    // outputBox.setModel(new DefaultComboBoxModel<String>(options));
+    // }
 
     public static void main(String[] args) {
         new conversor();

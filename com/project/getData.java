@@ -9,10 +9,8 @@ public class getData {
     static String line = "";
     static String splitBy = ";";
 
-    public String name;
-    public String symbol;
+    public String name, symbol, lname;
     public double value;
-    public String lname;
 
     public static void main(String[] args) {
         readCurrencyData();
