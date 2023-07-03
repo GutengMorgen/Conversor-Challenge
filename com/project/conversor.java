@@ -101,52 +101,40 @@ class conversor implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == convertBtn) {
-            String itext = inputText.getText();
 
+            String itext = inputText.getText();
             double iboxdouble = new MyItems().IBoxgetSelectedItem(inputBox);
             double oboxdouble = new MyItems().OBoxGetSelectedItem(outputBox);
             // System.out.println(iboxdouble + "\n" + oboxdouble);
-
             String result = getResult(itext, iboxdouble, oboxdouble);
             outputText.setText(result);
 
         } else if (e.getSource() == CleanBtn) {
+
             inputText.setText("");
             outputText.setText("");
+
         } else if (e.getSource() == currencyBtn) {
-            /*
-             * List<String> optionsList = new ArrayList<>();
-             * Map<String, getData> map = getData.readCurrencyData();
-             * 
-             * for (var i : map.values()) {
-             * optionsList.add(i.name);
-             * }
-             * 
-             * String[] options = optionsList.toArray(new String[0]);
-             * structure(options);
-             */
+
             Map<String, getData> map = getData.readCurrencyData();
             new MyItems().SetToComboBox(map, inputBox, outputBox);
-            // MyItems testing = new MyItems();
-            // testing.SetToComboBox(map, inputBox, outputBox);
 
         } else if (e.getSource() == temperatureBtn) {
-            // getData.readTemperatureData();
-            // String[] options = { "C", "F", "K" };
-            // structure(options);
+
+            Map<String, getData> map = getData.readTemperatureData();
+            new MyItems().SetToComboBox(map, inputBox, outputBox);
+
         } else if (e.getSource() == measureBtn) {
-            // getData.readOthersData();
-            // String[] options = { "kg", "g", "mg" };
-            // structure(options);
+
+            // Map<String, getData> map = getData.readOthersData();
+            // new MyItems().SetToComboBox(map, inputBox, outputBox);
         }
     }
 
-    // private void structure(String[] options) {
-    // inputBox.setModel(new DefaultComboBoxModel<String>(options));
-    // outputBox.setModel(new DefaultComboBoxModel<String>(options));
-    // }
-
     public static void main(String[] args) {
-        new conversor();
+        // new conversor();
+        String operation = "(K * 4) - 5";
+        String result = operation.replace("K", "3");
+        System.out.println(result);
     }
 }

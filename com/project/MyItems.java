@@ -5,17 +5,16 @@ import java.util.Map;
 import javax.swing.JComboBox;
 
 public class MyItems {
-    private String name, symbol, lname;
+    private String name, symbol;
     private double value;
 
     public MyItems() {
     }
 
-    public MyItems(String name, String symbol, double value, String lname) {
+    public MyItems(String name, String symbol, double value) {
         this.name = name;
         this.symbol = symbol;
         this.value = value;
-        this.lname = lname;
     }
 
     public String getName() {
@@ -30,10 +29,6 @@ public class MyItems {
         return value;
     }
 
-    public String getLname() {
-        return lname;
-    }
-
     @Override
     public String toString() {
         return name;
@@ -41,8 +36,8 @@ public class MyItems {
 
     public void SetToComboBox(Map<String, getData> map, JComboBox<MyItems> iBox, JComboBox<MyItems> oBox) {
         for (var i : map.values()) {
-            iBox.addItem(new MyItems(i.name, i.symbol, i.value, i.lname));
-            oBox.addItem(new MyItems(i.name, i.symbol, i.value, i.lname));
+            iBox.addItem(new MyItems(i.name, i.symbol, i.value));
+            oBox.addItem(new MyItems(i.name, i.symbol, i.value));
         }
     }
 
@@ -51,6 +46,7 @@ public class MyItems {
         if (selecteItem != null) {
             return selecteItem.getValue();
         } else {
+            // TODO: agregar un manejo de errores adecuado
             return 0.0;
         }
     }
