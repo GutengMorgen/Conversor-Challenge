@@ -2,6 +2,8 @@ package com.project;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 // import com.project.getData;
 import java.util.Map;
 
@@ -105,12 +107,15 @@ class conversor implements ActionListener {
             inputText.setText("");
             outputText.setText("");
         } else if (e.getSource() == currencyBtn) {
+            List<String> optionsList = new ArrayList<>();
             Map<String, getData> map = getData.readCurrencyData();
+
             for (var i : map.values()) {
-                System.out.println(i.name);
+                optionsList.add(i.name);
             }
-            // String[] options = { "USD", "EUR", "PEN" };
-            // structure(options);
+
+            String[] options = optionsList.toArray(new String[0]);
+            structure(options);
         } else if (e.getSource() == temperatureBtn) {
             // getData.readTemperatureData();
             String[] options = { "C", "F", "K" };
