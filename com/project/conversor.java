@@ -6,6 +6,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.datatransfer.*;
 import java.util.Map;
 
 class conversor implements ActionListener {
@@ -23,7 +24,7 @@ class conversor implements ActionListener {
     static int OposY = IOheight + IposY + gapX + 10;
     JFrame jf;
     JButton currencyBtn, temperatureBtn,
-            convertBtn, CleanBtn;
+            convertBtn, CleanBtn, copyBtn;
     JTextField inputText, outputText;
     JComboBox<MyItems> inputBox, outputBox;
 
@@ -92,6 +93,17 @@ class conversor implements ActionListener {
         outputText.setBackground(new Color(250, 250, 250));
         outputText.setBounds(174, 197, 300, 40);
 
+        copyBtn = new JButton("Copiar");
+        copyBtn.addActionListener(this);
+
+        copyBtn.setForeground(Color.BLACK);
+        copyBtn.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 12));
+        copyBtn.setBorder(new CompoundBorder(new LineBorder(new Color(240, 240, 240), 1, true),
+                new LineBorder(new Color(240, 240, 240), 0, true)));
+        copyBtn.setBackground(new Color(250, 250, 250));
+        copyBtn.setBounds(417, 236, 57, 16);
+        copyBtn.setFocusPainted(false);
+
         // convert and clean buttons
         convertBtn = new JButton("CONVERT");
         convertBtn.addActionListener(this);
@@ -121,6 +133,7 @@ class conversor implements ActionListener {
 
         jf.add(inputText);
         jf.add(outputText);
+        jf.add(copyBtn);
 
         jf.add(convertBtn);
         jf.add(CleanBtn);
@@ -162,7 +175,15 @@ class conversor implements ActionListener {
         } else if (e.getSource() == CleanBtn) {
             inputText.setText("");
             outputText.setText("");
+        } else if (e.getSource() == copyBtn) {
+            copyToClipborad(outputText.getText());
         }
+    }
+
+    private void copyToClipborad(String text) {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection stringSelection = new StringSelection(text);
+        clipboard.setContents(stringSelection, null);
     }
 
     public static void main(String[] args) {
