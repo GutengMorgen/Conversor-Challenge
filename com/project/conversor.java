@@ -1,6 +1,10 @@
 package com.project;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 
@@ -28,36 +32,86 @@ class conversor implements ActionListener {
 
         // set Unit Converter buttons
         currencyBtn = new JButton("Currency");
-        currencyBtn.setBounds(20, UCposY, 100, UCheight);
         currencyBtn.addActionListener(this);
 
+        currencyBtn.setBorder(new LineBorder(new Color(0, 128, 0), 2));
+        currencyBtn.setForeground(new Color(0, 64, 128));
+        currencyBtn.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 20));
+        currencyBtn.setFocusPainted(false);
+        currencyBtn.setBackground(SystemColor.inactiveCaptionBorder);
+        currencyBtn.setBounds(10, 12, 220, 40);
+
         temperatureBtn = new JButton("Temperature");
-        temperatureBtn.setBounds(120 + gapX, UCposY, 120, UCheight);
         temperatureBtn.addActionListener(this);
 
-        // I/O buttons
+        temperatureBtn.setFocusPainted(false);
+        temperatureBtn.setForeground(new Color(0, 70, 0));
+        temperatureBtn.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 20));
+        temperatureBtn.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        temperatureBtn.setBorder(new LineBorder(new Color(0, 128, 0), 2));
+        temperatureBtn.setBackground(SystemColor.inactiveCaptionBorder);
+        temperatureBtn.setBounds(254, 12, 220, 40);
+
+        // I/O comboBox
         inputBox = new JComboBox<>();
-        inputBox.setBounds(posX, IposY, 80, IOheight);
+        inputBox.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 11));
+        inputBox.setEditable(true);
+        inputBox.setBorder(null);
+        inputBox.setBackground(new Color(250, 250, 250));
+        inputBox.setBounds(10, 108, 130, 40);
 
         outputBox = new JComboBox<>();
-        outputBox.setBounds(posX, OposY, 80, IOheight);
+        // outputBox.setBounds(posX, OposY, 80, IOheight);
+        outputBox.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 11));
+        outputBox.setBorder(null);
+        outputBox.setEditable(true);
+        outputBox.setBackground(new Color(250, 250, 250));
+        outputBox.setBounds(10, 197, 130, 40);
 
         // I/O textfields
-        inputText = new JTextField("1");
-        inputText.setBounds(120, IposY, 350, IOheight);
+        inputText = new JTextField();
+        inputText.setHorizontalAlignment(SwingConstants.CENTER);
+        inputText.setForeground(Color.BLACK);
+        inputText.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 20));
+        inputText.setDisabledTextColor(Color.BLACK);
+        inputText.setColumns(10);
+        inputText.setBorder(new CompoundBorder(new LineBorder(new Color(240, 240, 240), 1, true),
+                new LineBorder(new Color(240, 240, 240), 0, true)));
+        inputText.setBackground(new Color(250, 250, 250));
+        inputText.setBounds(174, 108, 300, 40);
 
         outputText = new JTextField("result");
+        outputText.setBorder(new CompoundBorder(new LineBorder(new Color(240, 240, 240), 1, true),
+                new LineBorder(new Color(240, 240, 240), 0, true)));
+        outputText.setDisabledTextColor(new Color(0, 0, 0));
         outputText.setEnabled(false);
-        outputText.setBounds(120, OposY, 350, IOheight);
+        outputText.setHorizontalAlignment(SwingConstants.CENTER);
+        outputText.setForeground(new Color(0, 0, 0));
+        outputText.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 20));
+        outputText.setColumns(10);
+        outputText.setBackground(new Color(250, 250, 250));
+        outputText.setBounds(174, 197, 300, 40);
 
         // convert and clean buttons
         convertBtn = new JButton("CONVERT");
-        convertBtn.setBounds(posX, 265, 370, IOheight);
         convertBtn.addActionListener(this);
 
+        convertBtn.setFocusPainted(false);
+        convertBtn.setBorder(new LineBorder(Color.BLACK, 2));
+        convertBtn.setForeground(new Color(0, 64, 128));
+        convertBtn.setFont(new Font("Franklin Gothic Book", Font.BOLD, 35));
+        convertBtn.setBackground(SystemColor.inactiveCaptionBorder);
+        convertBtn.setBounds(10, 295, 350, 65);
+
         CleanBtn = new JButton("C");
-        CleanBtn.setBounds(415, 265, 50, IOheight);
         CleanBtn.addActionListener(this);
+
+        CleanBtn.setFocusPainted(false);
+        CleanBtn.setBorder(new LineBorder(new Color(128, 0, 0), 2));
+        CleanBtn.setForeground(new Color(128, 0, 0));
+        CleanBtn.setFont(new Font("Franklin Gothic Book", Font.BOLD, 35));
+        CleanBtn.setBackground(SystemColor.inactiveCaptionBorder);
+        CleanBtn.setBounds(399, 295, 75, 65);
 
         jf.add(currencyBtn);
         jf.add(temperatureBtn);
@@ -71,10 +125,14 @@ class conversor implements ActionListener {
         jf.add(convertBtn);
         jf.add(CleanBtn);
 
-        jf.setSize(500, 380);
-        jf.setLayout(null);// using no layout managers
-        jf.setVisible(true);// making the frame visible
+        jf.setBounds(120, 120, 500, 410);
+        jf.setLayout(null);
+        jf.setVisible(true);
         jf.setResizable(false);
+        jf.setTitle("Conversor");
+        jf.setAlwaysOnTop(true);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setIconImage(new ImageIcon("com\\project\\figure.png").getImage());
     }
 
     public void actionPerformed(ActionEvent e) {
