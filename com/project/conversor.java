@@ -9,7 +9,7 @@ import java.awt.event.*;
 import java.awt.datatransfer.*;
 import java.util.Map;
 
-class conversor implements ActionListener {
+public class conversor implements ActionListener {
     private static final MyItems MY_ITEMS = new MyItems();
     static int gapX = 25;
     static int posX = 20;
