@@ -12,10 +12,6 @@ public class getData {
     public String name, symbol, formula1, formula2;
     public double value;
 
-    public static void main(String[] args) {
-        readCurrencyData();
-    }
-
     public getData() {
     }
 
@@ -32,30 +28,14 @@ public class getData {
         this.formula2 = formula2;
     }
 
-    /*
-     * public String getName() {
-     * return name;
-     * }
-     * 
-     * public String getSymbol() {
-     * return symbol;
-     * }
-     * 
-     * public double getValue() {
-     * return value;
-     * }
-     */
-
     public static Map<String, getData> readCurrencyData() {
         Map<String, getData> setCurrencies = new HashMap<>();
 
         try (BufferedReader buffer = new BufferedReader(new FileReader("com\\project\\Data\\currency.csv"))) {
             while ((line = buffer.readLine()) != null) {
                 String[] getText = line.split(splitBy);
-
                 setCurrencies.put(getText[0], new getData(getText[0], getText[1], getText[2]));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,32 +49,13 @@ public class getData {
         try (BufferedReader buffer = new BufferedReader(new FileReader("com\\project\\Data\\temperature.csv"))) {
             while ((line = buffer.readLine()) != null) {
                 String[] getText = line.split(splitBy);
-
                 setTemperatures.put(getText[0], new getData(getText[0], getText[1], getText[2], getText[3]));
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return setTemperatures;
-    }
-
-    public static Map<String, getData> readOthersData() {
-        Map<String, getData> setOthers = new HashMap<>();
-
-        try (BufferedReader buffer = new BufferedReader(new FileReader("com\\project\\Data\\others.csv"))) {
-            while ((line = buffer.readLine()) != null) {
-                String[] getText = line.split(splitBy);
-
-                setOthers.put(getText[0], new getData(getText[0], getText[1], getText[2]));
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // TODO: poner un manejo de errores si Map esta vacio
-        return setOthers;
+        return setTemperatures;
     }
 }
